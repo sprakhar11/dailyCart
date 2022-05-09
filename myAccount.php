@@ -35,6 +35,7 @@ include "./config/userSession.php";
 <a href='<?php $userId = $user['id']; echo "editProfile.php" . "?id=$userId"; ?>'>Edit Profile</a>
 
 
+
   <h1>You are a customer if you want to be a seller fill up the form</h1>
 
   <a href='<?php $userId = $user['id']; echo "sellerForm.php" . "?id=$userId"; ?>'>Form</a>
@@ -47,7 +48,13 @@ include "./config/userSession.php";
 <h1>You are a seller : </h1>
 <a href='<?php $userId = $user['id']; echo "editProfile.php" . "?id=$userId"; ?>'>Edit Profile</a>
 
+
 <a href="add_product.php">Add Product</a>
+<a href="delete_products.php">Delete Product</a>
+
+
+<?php include "./add_address.php"; ?>
+
 
 
 <br>

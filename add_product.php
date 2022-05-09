@@ -6,11 +6,11 @@ include "./config/userSession.php";
 include "./navbar.php";
 
 
-// if(empty($_SESSION['email'])) {
+if(empty($_SESSION['email'])) {
 
-//     header('Location: login.php?from_page=myAccount');
+    header('Location: login.php?from_page=myAccount');
 
-//    }
+}
 // include "./userData.php";
 
 $name = $description = $price = $imagePath = "";

@@ -1,10 +1,4 @@
-<?php
-   if(empty($_SESSION['email'])) {
-
-    header('Location: login.php?from_page=myAccount');
-
-   }
-?>
+    
 <?php
 
 include "./header.php";

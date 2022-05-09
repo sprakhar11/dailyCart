@@ -27,6 +27,12 @@
         } else {
             $mobileNumberErr = "Mobile number is missing!";
         }
+        if (!empty($_POST['mobileNumber']))
+        if( strlen(strval($mobileNumber)) != 10)
+        {
+            // echo strval($phone);
+            $mobileNumberErr = "Length should be 10 integers";
+        }
 
 
         if (!empty($_POST['email'])) {

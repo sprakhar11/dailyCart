@@ -2,17 +2,17 @@
 <html lang="en">
  <?php include "./header.php"  ?>
   <body>
+    
+<?php if(isset($_GET['from_page'])): ?>
+    <h1>Login first</h1>
 
-
+<?php endif ?>
 
 
 
 <?php
 
-if( isset($from_page))
-{
-    echo 'Login first';
-}
+
 
 
 
