@@ -150,7 +150,7 @@
                 <div id="emailHelp" class="form-text"><?php echo $passwordLengthErr; ?></div>
             </div>
 
-            <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+            <button type="submit" class="btn btn-primary" name="submit">Signup</button>
         </form>
 
 

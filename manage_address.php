@@ -3,12 +3,12 @@
 <?php include "./header.php" ?>
 <?php include "./config/userSession.php" ?>
 <body>
-    <?php include "./navbar.php"  ?>
+<?php include "./navbar.php"  ?>
 
 <?php
    if(empty($_SESSION['email'])) {
 
-    header('Location: login.php?from_page=myAccount');
+    header('Location: login.php?from_page=xyz');
 
    }
 ?>
@@ -57,7 +57,6 @@ $cntAddress = 0;
     <div >
        
           <div class="card-body">
-              <h5></h5>
             <h6 class="card-title">Country:<?php echo $value['country'] ?></h6>
             <h6 class="card-text">Name <?php echo $value['name'] ?></h6>
             <h6 class="card-text">Mobile Number :<?php echo $value['phone'] ?></h6>
@@ -70,7 +69,7 @@ $cntAddress = 0;
 
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);  ?>" method="POST">
 
-        <button type="submit" class="btn btn-primary" name="submit" value="<?php echo $value['id'] ?>">Delete</button>
+        <button type="submit" class="btn btn-primary" name="submitEdit" value="<?php echo $value['id'] ?>">Edit</button>
         <button type="submit" class="btn btn-primary" name="submit" value="<?php echo $value['id'] ?>">Delete</button>
             
         </form>

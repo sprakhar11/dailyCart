@@ -39,6 +39,10 @@ include "./config/userSession.php";
   <h1>You are a customer if you want to be a seller fill up the form</h1>
 
   <a href='<?php $userId = $user['id']; echo "sellerForm.php" . "?id=$userId"; ?>'>Form</a>
+  <a href='<?php $userId = $user['id']; echo "manage_address.php" . "?id=$userId"; ?>'>Manage Address</a>
+
+<h3>Add Address : </h3>
+<?php include "./add_address.php"; ?>
 
 <?php endif ?>
 <?php endif ?>
@@ -51,14 +55,14 @@ include "./config/userSession.php";
 
 <a href="add_product.php">Add Product</a>
 <a href="delete_products.php">Delete Product</a>
+<a href='<?php $userId = $user['id']; echo "manage_address.php" . "?id=$userId"; ?>'>Manage Address</a>
 
-
+<h3>Add Address : </h3>
 <?php include "./add_address.php"; ?>
 
 
 
 <br>
-<h1>Your Products:</h1>
 <?php include "./userProducts.php"; ?>
 <?php endif ?>
 <?php endif ?>

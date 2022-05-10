@@ -1,5 +1,23 @@
 
 <?php
+    if(isset($GET['id'])){
+
+        if(!empty($GET['id'])){
+        $editAddressId = $_GET['id'];
+        } else {
+          header('Location: login.php?from_page=myAccount');
+        }
+    } else {
+
+      header('Location: login.php?from_page=myAccount');
+
+    }
+
+    $sql="SELECT * FROM address  WHERE id='$editAddressId' ";
+
+    $query=mysqli_query($conn,$sql);
+
+    $user=mysqli_fetch_array($query);
 
 $country = $name = $phone = $pincode = $addline1 = $city = $state = $type = $userid = "";
 $countryErr = $nameErr = $phoneErr = $pincodeErr = $addline1Err = $cityErr = $stateErr = $typeErr = $useridErr = "";
@@ -67,7 +85,7 @@ if (isset($_POST['submit'])) {
 
                     // successfully data registered
                     header('Location: myAccount.php');
-                    // echo 'hit 1';
+                    // echo 'hialkdnsa;ldfndsl;fndslfjnsd;lfnj';
                 } else {
                     // echo "Error:" . mysqli_error($conn);
                 }
