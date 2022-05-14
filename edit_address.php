@@ -16,7 +16,7 @@ include "./navbar.php";
     
     // echo $editAddressId;    
 
-    $sql="SELECT * FROM address  WHERE id='$editAddressId' ";
+    $sql="SELECT * FROM address  WHERE id='$editAddressId'";
 
     $query=mysqli_query($conn,$sql);
 

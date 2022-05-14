@@ -11,10 +11,16 @@
     header('Location: login.php?from_page=myAccount');
 
    }
+   
 ?>
+
+<?php if(!empty($_GET['updated'])) : ?>
+<h3>Successfully updated</h3>
+
+<?php endif ?>
 <?php
-if(isset($_POST['submitEdit']))
-{
+
+if(isset($_POST['submitEdit'])) {
     // print_r($_POST['submit']);
     // echo 'hi';
 
@@ -79,7 +85,7 @@ $cntProduct = 0;
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);  ?>" method="POST">
         <button type="submit" class="btn btn-primary" name="submitEdit" value="<?php echo $value['id'] ?>">Edit</button>
 
-        <button type="submit" class="btn btn-primary" name="submit" value="<?php echo $value['id'] ?>">Select</button>
+        <button type="submit" class="btn btn-primary" name="submit" value="<?php echo $value['id'] ?>">Delete</button>
             
         </form>
           </div>

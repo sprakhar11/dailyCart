@@ -52,9 +52,8 @@ include "./config/userSession.php";
 <h1>You are a seller : </h1>
 <a href='<?php $userId = $user['id']; echo "editProfile.php" . "?id=$userId"; ?>'>Edit Profile</a>
 
-
 <a href="add_product.php">Add Product</a>
-<a href="manage_products.php">Delete Product</a>
+<a href="manage_products.php">Manage Products</a>
 <a href='<?php $userId = $user['id']; echo "manage_address.php" . "?id=$userId"; ?>'>Manage Address</a>
 
 <h3>Add Address : </h3>

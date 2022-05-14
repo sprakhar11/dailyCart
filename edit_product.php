@@ -11,77 +11,90 @@ if(empty($_SESSION['email'])) {
     header('Location: login.php?from_page=myAccount');
 
 }
-// include "./userData.php";
+if(!empty($_SESSION['editproductid'])){
 
-$name = $description = $price = $imagePath = "";
-$nameErr = $descriptionErr = $priceErr = $imagePathErr = "";
-$fileName = $targetDir = "";
-$productExist="";
+    $editProductId = $_SESSION['editproductid'];
 
 
-if(isset($_POST['submit']))
-{
-    if (!empty($_POST['name'])) {
-        $name = htmlspecialchars($_POST['name']);
-    } else {
-        $nameErr = "Product Name is missing!";
-    }
+        $name = $description = $price = $imagePath = "";
+        $nameErr = $descriptionErr = $priceErr = $imagePathErr = "";
+        $fileName = $targetDir = "";
+        $productExist="";
 
-    if (!empty($_POST['description'])) {
-        $description = htmlspecialchars($_POST['description']);
-    } else {
-        $descriptionErr = "Description is missing!";
-    }
+        $sql="SELECT * FROM product  WHERE id='$editProductId'";
+
+        $query=mysqli_query($conn,$sql);
+
+        $product=mysqli_fetch_array($query);
 
 
-    if (!empty($_POST['price'])) {
-        $price = htmlspecialchars($_POST['price']);
-    } else {
-        $priceErr = "Price is missing!";
-    }
-    // if(!empty($_POST['$upload']))
-    echo $_POST['upload'];
-    if(!empty($_FILES['upload']['name'])) {
-        $fileName = $_FILES['upload']['name'];
-        $fileTmp = $_FILES['upload']['tmp_name'];
-        $targetDir = "./productImages/$fileName";
-        move_uploaded_file($fileTmp, $targetDir);
-    } else {
+        if(isset($_POST['submit']))
+        {
+            if (!empty($_POST['name'])) {
+                $name = htmlspecialchars($_POST['name']);
+            } else {
+                $name= $product['name'];
+            }
 
-        $imagePathErr = " Image is not uploaded Successfully!";
-    }
+            if (!empty($_POST['description'])) {
+                $description = htmlspecialchars($_POST['description']);
+            } else {
+                $description = $product['description'];
+            }
 
 
-    // echo "reached here";
-    // echo $name;
-    // echo $description;
-    // echo $price;
-    // echo $imagePath;
-    
+            if (!empty($_POST['price'])) {
+                $price = htmlspecialchars($_POST['price']);
+            } else {
+                $price = $product['price'];
+            }
+            // if(!empty($_POST['$upload']))
+            echo $_POST['upload'];
+            if(!empty($_FILES['upload']['name'])) {
+                $fileName = $_FILES['upload']['name'];
+                $fileTmp = $_FILES['upload']['tmp_name'];
+                $targetDir = "./productImages/$fileName";
+                move_uploaded_file($fileTmp, $targetDir);
+            } else {
 
-    if (empty($nameErr) && empty($descriptionErr) && empty($imagePathErr) && empty($priceErr)) {
-        // echo $name;
-        // echo "reached in product create";
-                $sellerId = $user['id'];
+                $targetDir = $product['imagePath'];
+            }
 
-                $sql = "INSERT INTO product ( name, description, price, imagePath, sellerId) VALUES (  '$name', '$description', '$price','$targetDir', '$sellerId')";
-                
-                if (mysqli_query($conn, $sql)) {
 
-                    // successfully data registered
-                    header('Location: myAccount.php');
-                } else {
-                    echo "Error:" . mysqli_error($conn);
-                }
+            // echo "reached here";
+            // echo $name;
+            // echo $description;
+            // echo $price;
+            // echo $imagePath;
             
-        
-        
-    
 
-    
-    } 
+            if (empty($nameErr) && empty($descriptionErr) && empty($imagePathErr) && empty($priceErr)) {
+                // echo $name;      
+                // echo "reached in product create";
+
+                        $sql = "UPDATE product SET name='$name', description='$description', price='$price', imagePath='$targetDir' WHERE id='$editProductId'";
+                        
+                        if (mysqli_query($conn, $sql)) {
+
+                            // successfully data registered
+                            header('Location: manage_products.php?updated=done');
+
+                        } else {
+                            // echo "Error:" . mysqli_error($conn);
+                        }
+                    
+                
+                
+            
+
+            
+            } 
+        } else {
+            // echo "form not submitted";
+        }
 } else {
-    // echo "form not submitted";
+
+    header('Location: myAccount.php');
 }
 
 
@@ -90,7 +103,7 @@ if(isset($_POST['submit']))
 
 <div class="container">
 
-        <h1 style="text-align: center;">Seller Register Here</h1>
+        <h1 style="text-align: center;">Edit Product</h1>
         <br><br><br><br><br>
 
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);  ?>" method="POST" enctype="multipart/form-data">
@@ -99,13 +112,13 @@ if(isset($_POST['submit']))
 
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Name </label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="name">
+                <input type="text" placeholder="<?php echo $product['name'] ?>" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="name">
                 <div id="emailHelp" class="form-text"><?php echo $nameErr; ?></div>
             </div>
 
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Description</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="description">
+                <input type="text" placeholder="<?php echo $product['description'] ?>" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="description">
                 <div id="emailHelp" class="form-text"><?php echo $descriptionErr; ?></div>
             </div>
 
@@ -113,7 +126,7 @@ if(isset($_POST['submit']))
 
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">price</label>
-                <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="price">
+                <input type="number" placeholder="<?php echo $product['price'] ?>" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="price">
                 <div id="emailHelp" class="form-text"><?php echo $priceErr; ?></div>
             </div>  
 
@@ -123,7 +136,7 @@ if(isset($_POST['submit']))
             <div id="emailHelp" class="form-text"><?php echo $imagePathErr; ?></div>
             
 
-            <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+            <button type="submit" class="btn btn-primary" name="submit">Update</button>
         </form>
 
 
