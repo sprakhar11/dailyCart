@@ -1,46 +1,50 @@
 
 <?php
-    if(isset($GET['id'])){
 
-        if(!empty($GET['id'])){
-        $editAddressId = $_GET['id'];
+include "./header.php";
+include "./config/userSession.php";
+include "./navbar.php";
+
+
+
+    
+        if(!empty($_SESSION['editaddressid'])){
+            $editAddressId = $_SESSION['editaddressid'];
         } else {
-          header('Location: login.php?from_page=myAccount');
+        //   header('Location: login.php?from_page=myAccount');
         }
-    } else {
-
-      header('Location: login.php?from_page=myAccount');
-
-    }
+    
+    // echo $editAddressId;    
 
     $sql="SELECT * FROM address  WHERE id='$editAddressId' ";
 
     $query=mysqli_query($conn,$sql);
 
-    $user=mysqli_fetch_array($query);
+    $address=mysqli_fetch_array($query);
 
-$country = $name = $phone = $pincode = $addline1 = $city = $state = $type = $userid = "";
-$countryErr = $nameErr = $phoneErr = $pincodeErr = $addline1Err = $cityErr = $stateErr = $typeErr = $useridErr = "";
-$userId = $user['id'];
-// echo $userId;
+$country = $name = $phone = $pincode = $addline1 = $city = $state = $type = $addressid = "";
+$countryErr = $nameErr = $phoneErr = $pincodeErr = $addline1Err = $cityErr = $stateErr = $typeErr = $addressidErr = "";
+// $addressId = $address['id'];
+// echo $addressId;
 if (isset($_POST['submit'])) {
 
 
     if (!empty($_POST['country'])) {
         $country = htmlspecialchars($_POST['country']);
     } else {
-        $countryErr = "country is missing";
+        $country = $address['country'];
+
     }
 
     if (!empty($_POST['name'])) {
         $name = $_POST['name'];
     } else {
-        $nameErr = "name is missing!";
+        $name = $address['name'];
     }
     if (!empty($_POST['phone'])) {
         $phone = $_POST['phone'];
     } else {
-        $phoneErr = "Mobile number is missing!";
+        $phone = $address['phone'];
     }
     if (!empty($_POST['phone']))
     if( strlen(strval($phone)) != 10)
@@ -51,40 +55,40 @@ if (isset($_POST['submit'])) {
     if (!empty($_POST['pincode'])) {
         $pincode = $_POST['pincode'];
     } else {
-        $pincodeErr = "pincode is missing!";
+        $pincode = $address['pincode'];
     }
     if (!empty($_POST['addline1'])) {
         $addline1 = $_POST['addline1'];
     } else {
-        $addline1Err = "Address is missing!";
+        $addline1 = $address['addline1'];
     }
 
     if (!empty($_POST['city'])) {
         $city = $_POST['city'];
     } else {
-        $cityErr = "City is missing!";
+        $city = $address['city'];
     }
     if (!empty($_POST['state'])) {
         $state = $_POST['state'];
     } else {
-        $stateErr = "State is missing!";
+        $state = $address['state'];
     }
     if (!empty($_POST['type'])) {
         $type = $_POST['type'];
     } else {
-        $typeErr = "Type is missing!";
+        $type = $address['type'];
     }
 
     if (empty($nameErr) && empty($countryErr) && empty($phoneErr) && empty($pincodeErr) && empty($addline1Err) && empty($stateErr) && empty($cityErr) && empty($typeErr)) {
 
-                $userId = $user['id'];
+                
 
-                $sql = "INSERT INTO address ( country, name, phone, pincode, addline1, city, state, type, userid) VALUES ('$country', '$name', '$phone', '$pincode', '$addline1', '$city', '$state', '$type', '$userId')";
+                $sql = "UPDATE address SET country='$country', name='$name', phone='$phone', pincode='$pincode', addline1='$addline1', city='$city', type='$type', state='$state' WHERE id='$editAddressId' ";
                 
                 if (mysqli_query($conn, $sql)) {
 
                     // successfully data registered
-                    header('Location: myAccount.php');
+                    header('Location: manage_address.php');
                     // echo 'hialkdnsa;ldfndsl;fndslfjnsd;lfnj';
                 } else {
                     // echo "Error:" . mysqli_error($conn);
@@ -122,51 +126,51 @@ if (isset($_POST['submit'])) {
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="inputEmail4">Country</label>
-            <input type="text" class="form-control" id="inputEmail4" name="country">
+            <input type="text" placeholder="<?php echo $address['country'] ?>" class="form-control" id="inputEmail4" name="country">
             <div id="emailHelp" class="form-text"><?php echo $countryErr; ?></div>
 
         </div>
         <div class="form-group col-md-6">
             <label for="inputEmail4">Name</label>
-            <input type="text" class="form-control" id="inputEmail4" name="name">
+            <input type="text" placeholder="<?php echo $address['name'] ?>" class="form-control" id="inputEmail4" name="name">
             <div id="emailHelp" class="form-text"><?php echo $nameErr; ?></div>
 
         </div>
         <div class="form-group col-md-6">
             <label for="inputEmail4">Mobile Number</label>
-            <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="phone">
+            <input type="number" placeholder="<?php echo $address['phone'] ?>" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="phone">
 
             <div id="emailHelp" class="form-text"><?php echo $phoneErr; ?></div>
 
         </div>
         <div class="form-group col-md-6">
             <label for="inputEmail4">Pincode</label>
-            <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="pincode">
+            <input type="number" placeholder="<?php echo $address['pincode'] ?>" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="pincode">
 
             <div id="emailHelp" class="form-text"><?php echo $pincodeErr; ?></div>
 
         </div>
         <div class="form-group col-md-6">
             <label for="inputEmail4">Address:</label>
-            <input type="text" class="form-control" id="inputEmail4" name="addline1">
+            <input type="text" placeholder="<?php echo $address['addline1'] ?>" class="form-control" id="inputEmail4" name="addline1">
             <div id="emailHelp" class="form-text"><?php echo $addline1Err; ?></div>
 
         </div>
         <div class="form-group col-md-6">
             <label for="inputEmail4">City</label>
-            <input type="text" class="form-control" id="inputEmail4" name="city">
+            <input type="text" placeholder="<?php echo $address['city'] ?>" class="form-control" id="inputEmail4" name="city">
             <div id="emailHelp" class="form-text"><?php echo $cityErr; ?></div>
 
         </div>
         <div class="form-group col-md-6">
             <label for="inputEmail4">State</label>
-            <input type="text" class="form-control" id="inputEmail4" name="state">
+            <input type="text" placeholder="<?php echo $address['state'] ?>" class="form-control" id="inputEmail4" name="state">
             <div id="emailHelp" class="form-text"><?php echo $stateErr; ?></div>
 
         </div>
         <div class="form-group col-md-6">
             <label for="inputEmail4">Type</label>
-            <input type="text" class="form-control" id="inputEmail4" name="type">
+            <input type="text" placeholder="<?php echo $address['type'] ?>" class="form-control" id="inputEmail4" name="type">
             <div id="emailHelp" class="form-text"><?php echo $typeErr; ?></div>
 
         </div>
@@ -175,7 +179,7 @@ if (isset($_POST['submit'])) {
         
         
         </div>
-        <button type="submit" name="submit" class="btn btn-primary">Add Address</button>
+        <button type="submit" name="submit" class="btn btn-primary">Update</button>
     </form>
 
     <!-- Optional JavaScript; choose one of the two! -->

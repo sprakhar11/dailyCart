@@ -15,6 +15,18 @@
 <?php
 
 
+if(isset($_POST['submitEdit']))
+{
+    // print_r($_POST['submit']);
+
+    $_SESSION['editaddressid'] = $_POST['submitEdit'];
+    header('Location: edit_address.php');
+
+    
+    
+
+
+}
 if(isset($_POST['submit']))
 {
     // print_r($_POST['submit']);
@@ -45,9 +57,9 @@ $cntAddress = 0;
 
 
 
-<div class="container">
+<div >
 
-<div class="row row-cols-1 row-cols-md-3 g-4">
+<div >
 
   <?php foreach ($address as $value) :  ?>
     <?php  if($value['userid'] == $user['id']) : ?>
@@ -66,10 +78,11 @@ $cntAddress = 0;
             <h6 class="card-text">State:<?php echo $value['state'] ?></h6>
             <h6 class="card-text">Type: <?php echo $value['type'] ?></h6>
 
-
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);  ?>" method="POST">
 
+       
         <button type="submit" class="btn btn-primary" name="submitEdit" value="<?php echo $value['id'] ?>">Edit</button>
+
         <button type="submit" class="btn btn-primary" name="submit" value="<?php echo $value['id'] ?>">Delete</button>
             
         </form>

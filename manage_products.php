@@ -13,7 +13,19 @@
    }
 ?>
 <?php
+if(isset($_POST['submitEdit']))
+{
+    // print_r($_POST['submit']);
+    // echo 'hi';
 
+    $_SESSION['editproductid'] = $_POST['submitEdit'];
+    header('Location: edit_product.php');
+
+    
+    
+
+
+}
 
 if(isset($_POST['submit']))
 {
@@ -38,7 +50,7 @@ $product = mysqli_fetch_all($result, MYSQLI_ASSOC);
 $cntProduct = 0;
 
 ?>
-<h1 style="text-align: center;">Delete products</h1>
+<h1 style="text-align: center;">Manage products</h1>
 
 <br><br><br><br>
 
@@ -65,6 +77,7 @@ $cntProduct = 0;
             <p class="card-text"><?php echo $value['description'] ?></p>
             <p class="card-text">Rs.<?php echo $value['price'] ?></p>
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);  ?>" method="POST">
+        <button type="submit" class="btn btn-primary" name="submitEdit" value="<?php echo $value['id'] ?>">Edit</button>
 
         <button type="submit" class="btn btn-primary" name="submit" value="<?php echo $value['id'] ?>">Select</button>
             

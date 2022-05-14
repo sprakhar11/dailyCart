@@ -54,7 +54,7 @@ include "./config/userSession.php";
 
 
 <a href="add_product.php">Add Product</a>
-<a href="delete_products.php">Delete Product</a>
+<a href="manage_products.php">Delete Product</a>
 <a href='<?php $userId = $user['id']; echo "manage_address.php" . "?id=$userId"; ?>'>Manage Address</a>
 
 <h3>Add Address : </h3>

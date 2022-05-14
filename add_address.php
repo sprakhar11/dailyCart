@@ -4,6 +4,7 @@
 $country = $name = $phone = $pincode = $addline1 = $city = $state = $type = $userid = "";
 $countryErr = $nameErr = $phoneErr = $pincodeErr = $addline1Err = $cityErr = $stateErr = $typeErr = $useridErr = "";
 $userId = $user['id'];
+$addressAdded = "";
 // echo $userId;
 if (isset($_POST['submit'])) {
 
@@ -66,7 +67,9 @@ if (isset($_POST['submit'])) {
                 if (mysqli_query($conn, $sql)) {
 
                     // successfully data registered
+                    $addressAdded = "Address added Successfully";
                     header('Location: myAccount.php');
+                   
                     // echo 'hit 1';
                 } else {
                     // echo "Error:" . mysqli_error($conn);
@@ -158,6 +161,9 @@ if (isset($_POST['submit'])) {
         
         </div>
         <button type="submit" name="submit" class="btn btn-primary">Add Address</button>
+        <br><br>
+        <div id="emailHelp" class="form-text"><?php echo $addressAdded; ?></div>
+
     </form>
 
     <!-- Optional JavaScript; choose one of the two! -->
