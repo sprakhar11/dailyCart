@@ -62,6 +62,8 @@ if(isset($_POST['submit'])) {
 
 
         if (isset($_SESSION['email']) && isset($_SESSION['password'])) {
+
+            include "./cookies_set.php";
             header("Location: userDashboard.php");
         }
     }

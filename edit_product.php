@@ -1,8 +1,7 @@
-
 <?php
 
 include "./header.php";
-include "./config/userSession.php";
+include "./config/userSession.php"; 
 include "./navbar.php";
 
 
@@ -11,6 +10,7 @@ if(empty($_SESSION['email'])) {
     header('Location: login.php?from_page=myAccount');
 
 }
+
 if(!empty($_SESSION['editproductid'])){
 
     $editProductId = $_SESSION['editproductid'];
@@ -50,7 +50,7 @@ if(!empty($_SESSION['editproductid'])){
             }
             // if(!empty($_POST['$upload']))
             echo $_POST['upload'];
-            if(!empty($_FILES['upload']['name'])) {
+            if (!empty($_FILES['upload']['name'])) {
                 $fileName = $_FILES['upload']['name'];
                 $fileTmp = $_FILES['upload']['tmp_name'];
                 $targetDir = "./productImages/$fileName";

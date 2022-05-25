@@ -4,6 +4,9 @@
 
 include "./header.php";
 include "./config/userSession.php";
+
+
+
 ?>
 
 <!--  no user logged in -->
@@ -11,7 +14,7 @@ include "./config/userSession.php";
 <?php
    if(empty($_SESSION['email'])) {
 
-    header('Location: login.php?from_page=myAccount');
+    header('Location: login.php?from_page=myAccount');                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 
    }
 ?>

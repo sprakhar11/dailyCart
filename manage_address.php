@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="en">
-<?php include "./header.php" ?>
-<?php include "./config/userSession.php" ?>
+<?php
+include "./header.php";
+include "./config/userSession.php" ?>
 <body>
 <?php include "./navbar.php"  ?>
 
@@ -11,6 +12,7 @@
     header('Location: login.php?from_page=xyz');
 
    }
+   
 ?>
 <?php
 
@@ -18,6 +20,10 @@
 if(isset($_POST['submitEdit']))
 {
     // print_r($_POST['submit']);
+    $editid = $_POST['submitEdit'];
+    $edit_address_hash = password_hash("$editid", PASSWORD_DEFAULT);
+
+    setcookie('addresseditid' , $edit_address_hash);
 
     $_SESSION['editaddressid'] = $_POST['submitEdit'];
     header('Location: edit_address.php');
@@ -29,16 +35,13 @@ if(isset($_POST['submitEdit']))
 }
 if(isset($_POST['submit']))
 {
-    // print_r($_POST['submit']);
-    // echo 'hi';
-
-    
     $delId = $_POST['submit'];
     $sql_delete = "DELETE FROM address WHERE id='$delId'";
     if ($conn->query($sql_delete) === TRUE) {
         // echo "Record updated successfully";
     } else {
     // echo "Error updating record: " . $conn->error;
+      
     }
 
 
@@ -64,7 +67,6 @@ $cntAddress = 0;
   <?php foreach ($address as $value) :  ?>
     <?php  if($value['userid'] == $user['id']) : ?>
   <?php $cntAddress = $cntAddress + 1; ?>
-
 
     <div >
        
