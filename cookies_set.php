@@ -44,7 +44,7 @@ if(isset($_SESSION['email']) && isset($_SESSION['password'])){
 
     // Append the vector at the end of the encrypted string
     $encrypted = $encrypted . ':' . $iv;
-    var_dump($encrypted);
+    // var_dump($encrypted);
 
     // Explode the string using the `:` separator.
     $parts = explode(':', $encrypted);
@@ -53,7 +53,7 @@ if(isset($_SESSION['email']) && isset($_SESSION['password'])){
     // Decrypt the data
     $decrypted = openssl_decrypt($parts[0], $method, $encryption_key, 0, $parts[1]);
 
-    var_dump("Decrypted: $decrypted");
+    // var_dump("Decrypted: $decrypted");
 
     setcookie('id', $encrypted, time() + (86400 * 30), "/"); // 30 days
 

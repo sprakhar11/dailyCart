@@ -1,8 +1,11 @@
 <?php
+require './vendor/autoload.php';
+$smarty = new Smarty();
 
 include "./header.php";
 include "./config/userSession.php";
 include "./navbar.php";
+
 
 if(!empty($_SESSION['editaddressid'])){
     $editAddressId = $_SESSION['editaddressid'];
@@ -16,10 +19,13 @@ if(!empty($_SESSION['editaddressid'])){
     $address_verify = mysqli_fetch_array($query);
 
     $encrypted_id = $_COOKIE['id'];
+    var_dump($encrypted_id);
     $method = 'AES-128-CBC';
     $encryption_key = 'myencryptionkey';
     $parts = explode(':', $encrypted_id);
     $decrypted_id = openssl_decrypt($parts[0], $method, $encryption_key, 0, $parts[1]);
+    var_dump($parts[1]);
+    var_dump($parts);
         $sql="SELECT * FROM address  WHERE id='$editAddressId'";
 
         $query=mysqli_query($conn,$sql);
@@ -29,6 +35,15 @@ if(!empty($_SESSION['editaddressid'])){
         $country = $name = $phone = $pincode = $addline1 = $city = $state = $type = $addressid = "";
         $countryErr = $nameErr = $phoneErr = $pincodeErr = $addline1Err = $cityErr = $stateErr ="";
          $typeErr = $addressidErr = "";
+        $smarty->assign('countryErr', "");
+        $smarty->assign('nameErr', "");
+        $smarty->assign('phoneErr', "");
+        $smarty->assign('pincodeErr', "");
+        $smarty->assign('addline1Err', "");
+        $smarty->assign('cityErr', "");
+        $smarty->assign('stateErr', "");
+        $smarty->assign('typeErr', "");
+
     if( $decrypted_id !=  $address_verify['userid']) {
         //show error message and
         var_dump($decrypted_id);
@@ -41,6 +56,22 @@ if(!empty($_SESSION['editaddressid'])){
 
     } else {
         // save address 
+        $smarty->assign('country', $address['country']);
+        $smarty->assign('name', $address['name']);
+        $smarty->assign('phone', $address['phone']);
+        $smarty->assign('pincode', $address['pincode']);
+        $smarty->assign('addline1', $address['addline1']);
+        $smarty->assign('city', $address['city']);
+        $smarty->assign('state', $address['state']);
+        $smarty->assign('type', $address['type']);
+
+
+
+
+
+
+
+
         if(isset($_POST['submit'])){
             
 
@@ -51,6 +82,7 @@ if (isset($_POST['submit'])) {
 
     if (!empty($_POST['country'])) {
         $country = htmlspecialchars($_POST['country']);
+        // $smarty->assign('country', $_POST['country']);
     } else {
         $country = $address['country'];
 
@@ -143,8 +175,9 @@ if (isset($_POST['submit'])) {
 }
 
 
+$smarty->display('edit_address.tpl');
 
-include ('save_address.php')
+// include ('save_address.php');
 ?>
 
 

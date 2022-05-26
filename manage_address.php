@@ -20,10 +20,6 @@ include "./config/userSession.php" ?>
 if(isset($_POST['submitEdit']))
 {
     // print_r($_POST['submit']);
-    $editid = $_POST['submitEdit'];
-    $edit_address_hash = password_hash("$editid", PASSWORD_DEFAULT);
-
-    setcookie('addresseditid' , $edit_address_hash);
 
     $_SESSION['editaddressid'] = $_POST['submitEdit'];
     header('Location: edit_address.php');
@@ -33,19 +29,35 @@ if(isset($_POST['submitEdit']))
 
 
 }
-if(isset($_POST['submit']))
-{
-    $delId = $_POST['submit'];
-    $sql_delete = "DELETE FROM address WHERE id='$delId'";
+
+if (isset($_GET['encrypt'])) {
+  $_GET['encrypt'] = urldecode($_GET['encrypt']);
+  // var_dump($_GET);
+  $parts = explode(':', $_GET['encrypt']);
+  // var_dump($parts);
+
+  $method = 'AES-128-CBC';
+    $encryption_key = 'myencryptionkey';
+    $parts = explode(':', $_GET['encrypt']);
+    // var_dump($parts);
+    // var_dump($parts[0], $method, $encryption_key, 0, $parts[1]);
+    $decrypted_id = openssl_decrypt($parts[0], $method, $encryption_key, 0, $parts[1]);
+    // var_dump($decrypted_id);
+    // code from hare pasted encrypted
+    $sql_delete = "DELETE FROM address WHERE id='$decrypted_id'";
     if ($conn->query($sql_delete) === TRUE) {
         // echo "Record updated successfully";
     } else {
-    // echo "Error updating record: " . $conn->error;
+
+    echo "Error updating record: " . $conn->error;
       
     }
-
-
+    header("Location: manage_address.php");
+    
 }
+
+
+
 
 $sql = 'SELECT * FROM address';
 $result = mysqli_query($conn, $sql);
@@ -82,12 +94,50 @@ $cntAddress = 0;
 
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);  ?>" method="POST">
 
-       
-        <button type="submit" class="btn btn-primary" name="submitEdit" value="<?php echo $value['id'] ?>">Edit</button>
+       <a href=""></a>
+        <!-- <button type="submit" class="btn btn-primary" name="submitEdit" value="<?php echo $value['id'] ?>">Edit</button> -->
 
-        <button type="submit" class="btn btn-primary" name="submit" value="<?php echo $value['id'] ?>">Delete</button>
-            
-        </form>
+        <!-- encrypt value id -->
+        <?php 
+          $method = 'AES-128-CBC';
+
+          // Set the encryption key
+          $encryption_key = 'myencryptionkey';
+      
+          // Generet a random initialisation vector
+          
+          $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($method));
+          // var_dump($iv);
+      
+          // Define the date to be encrypted
+          $data = $value['id'];
+      
+          // var_dump("Before encryption: $data");
+      
+          // Encrypt the data
+          $encrypted = openssl_encrypt($data, $method, $encryption_key, 0, $iv);
+          $encrypted = $encrypted . ':' . $iv;
+
+// var_dump($encrypted);
+          $parts = explode(':', $encrypted);
+          // var_dump($parts);
+// var_dump($parts[0], $method, $encryption_key, 0, $parts[1]);
+          $decrypted_id = openssl_decrypt($parts[0], $method, $encryption_key, 0, $parts[1]);
+          // var_dump($decrypted_id);
+
+        ?>
+
+<button type="submit" class="btn btn-primary" name="submit" value="<?php echo $encrypted ?>">Delete</button>
+
+</form>
+<?php
+// var_dump($encrypted);
+// var_dump();
+// die;
+$url = 'manage_address.php?encrypt='.urlencode($encrypted);
+echo "<a href='$url'>DELETE</a>";
+?>
+
           </div>
         </div>
       </a>
