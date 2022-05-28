@@ -8,7 +8,7 @@
 <div class="row row-cols-1 row-cols-md-3 g-4">
 
 {foreach $product as $value}
-    {strip}
+    
         <div class="col">
             <div class="card h-100">
             <div class="col-md-4">
@@ -16,7 +16,7 @@
         </div>
               <div class="card-body">
                   
-                <h5 class="card-title">{$value.name}></h5>
+                <h5 class="card-title">{$value.name}</h5>
                 <p class="card-text">{$value.description}</p>
                 <p class="card-text">Rs.{$value.price}</p>
     
@@ -25,7 +25,7 @@
             </div>
           </a>
         </div>
-    {/strip}
+    
 {/foreach}
 </div>
 </div>

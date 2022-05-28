@@ -6,7 +6,7 @@
 {if ($user)}
     <h5>Welcome {$user.name}</h5>
     {if $user.profile eq 'customer'}
-        <a href='<?php $userId = $user['id']; echo "editProfile.php" . "?id=$userId"; ?>'>Edit Profile</a>
+        <a href='editProfile.php'>Edit Profile</a>
 
 
 

@@ -1,20 +1,14 @@
-<!doctype html>
-<html lang="en">
+
 <?php
 include "./header.php";
 include "./config/userSession.php";
-include "./navbar.php"
- ?>
+include "./navbar.php";
 
-<?php
    if(empty($_SESSION['email'])) {
 
     header('Location: login.php?from_page=xyz');
 
    }
-   
-?>
-<?php
 
 
 if(isset($_POST['submitEdit']))
@@ -55,66 +49,47 @@ $sql = 'SELECT * FROM address';
 $result = mysqli_query($conn, $sql);
 $address = mysqli_fetch_all($result, MYSQLI_ASSOC);
 $cntAddress = 0;
-
-?>
-
-<h1 style="text-align: center;">Manage Address products</h1>
-
-<br><br>
-<div >
-<div >
-
-  <?php foreach ($address as $value) :  ?>
-  <?php  if($value['userid'] == $user['id']) : ?>
-  <?php $cntAddress = $cntAddress + 1; ?>
-
-    <div >
-       
-          <div class="card-body">
-            <h6 class="card-title">Country:<?php echo $value['country'] ?></h6>
-            <h6 class="card-text">Name <?php echo $value['name'] ?></h6>
-            <h6 class="card-text">Mobile Number :<?php echo $value['phone'] ?></h6>
-            <h6 class="card-text">Pincode: <?php echo $value['pincode'] ?></h6>
-            <h6 class="card-text">Address: <?php echo $value['addline1'] ?></h6>
-            <h6 class="card-text">City: <?php echo $value['city'] ?></h6>
-            <h6 class="card-text">State:<?php echo $value['state'] ?></h6>
-            <h6 class="card-text">Type: <?php echo $value['type'] ?></h6>
-
-        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);  ?>" method="POST">
-        <button type="submit" class="btn btn-primary" name="submitEdit" value="<?php echo $value['id'] ?>">Edit</button>
-        </form>
-<?php 
-    $method = 'AES-128-CBC';
-    $encryption_key = 'myencryptionkey';
-    $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($method));
-    $data = $value['id'];
+$smarty->assign('address_found_message', "");
+$smarty->display('manage_address.tpl');
 
 
-    $encrypted = openssl_encrypt($data, $method, $encryption_key, 0, $iv);
-    $encrypted = $encrypted . ':' . $iv;
 
-    $parts = explode(':', $encrypted);
-    $decrypted_id = openssl_decrypt($parts[0], $method, $encryption_key, 0, $parts[1]);
+foreach ($address as $value){
+      if($value['userid'] == $user['id']){
+
+          $smarty->assign('value', $value);
+
+          $cntAddress = $cntAddress + 1; 
+
+          
+
+          $method = 'AES-128-CBC';
+          $encryption_key = 'myencryptionkey';
+          $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($method));
+          $data = $value['id'];
 
 
-    $url = 'manage_address.php?encrypt='.urlencode($encrypted);
-    
-    echo "<a href='$url'>DELETE</a>";
-?>
+          $encrypted = openssl_encrypt($data, $method, $encryption_key, 0, $iv);
+          $encrypted = $encrypted . ':' . $iv;
 
-          </div>
-        </div>
-      </a>
+          
+          $url = 'manage_address.php?encrypt='.urlencode($encrypted);
+          $smarty->assign('url', $url);
+
+          $smarty->display('display_address.tpl');
+          
+              
 
 
-      <?php endif ?>
+      }
 
-    </div>
 
-  <?php endforeach  ?>
+  }
 
-  <?php  if($cntAddress == 0) : ?>
-    <h2>No Address to delete. First add. </h2>
-<?php endif ?>
+  if($cntAddress == 0){
+    $smarty->assign('address_found_message', 'no address found.Please add first');
+  }
+  
+
 
 

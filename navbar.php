@@ -2,7 +2,7 @@
 
 // var_dump($_SESSION); 
 require './vendor/autoload.php';
-    $smarty = new Smarty();
+$smarty = new Smarty();
 
 if (isset($_SESSION['email'])) {
     $sql="SELECT * FROM customer  WHERE email='$email' ";

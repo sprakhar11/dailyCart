@@ -22,10 +22,11 @@ if(!empty($_SESSION['editaddressid'])){
 
 
     $encrypted_id = $_COOKIE['id'];
-    $parts = explode(':', $encrypted_id);
-    // var_dump($encrypted_id);
     $method = 'AES-128-CBC';
     $encryption_key = 'myencryptionkey';
+    // var_dump($encrypted_id);
+
+    $parts = explode(':', $encrypted_id);
     $decrypted_id = openssl_decrypt($parts[0], $method, $encryption_key, 0, $parts[1]);
     // var_dump($parts[1]);
     // var_dump($decrypted_id);

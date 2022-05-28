@@ -27,9 +27,9 @@ if(isset($_SESSION['email']) && isset($_SESSION['password'])){
     
     setcookie('id', $encrypted, time() + (86400 * 30), "/"); // 30 days
     $parts = explode(':', $_COOKIE['id']);
-    // var_dump($parts);
+    var_dump($parts);
     $decrypted = openssl_decrypt($parts[0], $method, $encryption_key, 0, $parts[1]);
-    // var_dump($decrypted);
+    var_dump($decrypted);
     
 
 }

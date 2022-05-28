@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.1, created on 2022-05-27 20:11:41
+/* Smarty version 4.1.1, created on 2022-05-28 08:34:22
   from 'C:\xampp\htdocs\dailycart\myAccount.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.1',
-  'unifunc' => 'content_6291145d600f16_21254573',
+  'unifunc' => 'content_6291c26e771895_54686036',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '34f6dd37a1ef7a0a95a47943a4ed87f3d735c943' => 
     array (
       0 => 'C:\\xampp\\htdocs\\dailycart\\myAccount.tpl',
-      1 => 1653675098,
+      1 => 1653719658,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6291145d600f16_21254573 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6291c26e771895_54686036 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!doctype html>
 <html lang="en">
 <body>
@@ -30,9 +30,7 @@ function content_6291145d600f16_21254573 (Smarty_Internal_Template $_smarty_tpl)
     <h5>Welcome <?php echo $_smarty_tpl->tpl_vars['user']->value['name'];?>
 </h5>
     <?php if ($_smarty_tpl->tpl_vars['user']->value['profile'] == 'customer') {?>
-        <a href='<?php echo '<?php'; ?>
- $userId = $user['id']; echo "editProfile.php" . "?id=$userId"; <?php echo '?>'; ?>
-'>Edit Profile</a>
+        <a href='editProfile.php'>Edit Profile</a>
 
 
 

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.1, created on 2022-05-27 16:29:41
+/* Smarty version 4.1.1, created on 2022-05-28 10:17:26
   from 'C:\xampp\htdocs\dailycart\allProducts.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.1',
-  'unifunc' => 'content_6290e05581afc5_21117149',
+  'unifunc' => 'content_6291da96c94d05_29773667',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '60ae97e04d6932695fdfb538ec55174e74efbab2' => 
     array (
       0 => 'C:\\xampp\\htdocs\\dailycart\\allProducts.tpl',
-      1 => 1653653298,
+      1 => 1653725845,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6290e05581afc5_21117149 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6291da96c94d05_29773667 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!doctype html>
 <html lang="en">
 <body>
@@ -36,11 +36,28 @@ $_smarty_tpl->tpl_vars['value']->do_else = true;
 if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['value']->value) {
 $_smarty_tpl->tpl_vars['value']->do_else = false;
 ?>
-    <div class="col"><div class="card h-100"><div class="col-md-4"><img src="<?php echo $_smarty_tpl->tpl_vars['value']->value['imagePath'];?>
-" class="img-fluid rounded-start" alt="..."></div><div class="card-body"><h5 class="card-title"><?php echo $_smarty_tpl->tpl_vars['value']->value['name'];?>
-></h5><p class="card-text"><?php echo $_smarty_tpl->tpl_vars['value']->value['description'];?>
-</p><p class="card-text">Rs.<?php echo $_smarty_tpl->tpl_vars['value']->value['price'];?>
-</p><button type="button" class="btn btn-warning">BuyNow</button></div></div></a></div>
+    
+        <div class="col">
+            <div class="card h-100">
+            <div class="col-md-4">
+          <img src="<?php echo $_smarty_tpl->tpl_vars['value']->value['imagePath'];?>
+" class="img-fluid rounded-start" alt="...">
+        </div>
+              <div class="card-body">
+                  
+                <h5 class="card-title"><?php echo $_smarty_tpl->tpl_vars['value']->value['name'];?>
+</h5>
+                <p class="card-text"><?php echo $_smarty_tpl->tpl_vars['value']->value['description'];?>
+</p>
+                <p class="card-text">Rs.<?php echo $_smarty_tpl->tpl_vars['value']->value['price'];?>
+</p>
+    
+                <button type="button" class="btn btn-warning">BuyNow</button>
+              </div>
+            </div>
+          </a>
+        </div>
+    
 <?php
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
