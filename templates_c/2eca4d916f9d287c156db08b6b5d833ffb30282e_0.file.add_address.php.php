@@ -1,4 +1,27 @@
 <?php
+/* Smarty version 4.1.1, created on 2022-05-27 20:05:07
+  from 'C:\xampp\htdocs\dailycart\add_address.php' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '4.1.1',
+  'unifunc' => 'content_629112d378b300_78586605',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '2eca4d916f9d287c156db08b6b5d833ffb30282e' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\dailycart\\add_address.php',
+      1 => 1653674702,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_629112d378b300_78586605 (Smarty_Internal_Template $_smarty_tpl) {
+echo '<?php'; ?>
 
 
 require './vendor/autoload.php';
@@ -9,7 +32,6 @@ $smarty = new Smarty();
 // $countryErr = $nameErr = $phoneErr = "";
 // $pincodeErr = $addline1Err = "";
 // $cityErr = $stateErr = $typeErr = $useridErr = "";
-
 
 $smarty->assign('country', "");
 $smarty->assign('name', "");
@@ -27,10 +49,9 @@ $smarty->assign('addline1Err', "");
 $smarty->assign('cityErr', "");
 $smarty->assign('stateErr', "");
 $smarty->assign('typeErr', "");
-$smarty->assign('addressAdded', "");
 
 $userId = $user['id'];
-// $addressAdded = ""; 
+$addressAdded = ""; 
 // echo $userId;
 if (isset($_POST['submit'])) {
 
@@ -113,7 +134,6 @@ if (isset($_POST['submit'])) {
 
                     // successfully data registered
                     $addressAdded = "Address added Successfully";
-                    $smarty->assign('addressAdded', $addressAdded);
                     header('Location: myAccount.php');
                    
                     // echo 'hit 1';
@@ -125,7 +145,7 @@ if (isset($_POST['submit'])) {
 
 
 $smarty->display('add_address.tpl')
-?>
+<?php echo '?>'; ?>
 
 
 
@@ -136,3 +156,6 @@ $smarty->display('add_address.tpl')
 
 
 
+
+<?php }
+}

@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="en">
-<?php include "./header.php" ;
-        include "./navbar.php";
+<?php 
+
+    include "./header.php" ;    
 
 
 ?>
@@ -12,8 +13,9 @@
     <?php
 
     $name = $mobileNumber = $email = $password = "";
-    $nameErr= $mobileNumberErr = $emailErr = $passwordLengthErr = $passwordErr = $mobileAlreadyExists = "";
-    $mailExists = false;
+    $nameErr= $mobileNumberErr = $emailErr = $passwordLengthErr = $passwordErr = "";
+    $mailExists = "";
+    
     if (isset($_POST['submit'])) {
 
         if (!empty($_POST['name'])) {
@@ -59,35 +61,47 @@
 
 
 
-        if (empty($nameErr) && empty($emailErr) && empty($passwordErr) && empty($mobileNumberErr) && empty($passwordLengthErr)) { 
+        if (empty($nameErr) 
+            && empty($emailErr) 
+            && empty($passwordErr) 
+            && empty($mobileNumberErr) 
+            && empty($passwordLengthErr)) 
+        { 
 
-            $sqlEmail = "SELECT email FROM customer WHERE email='$email'";
-            $queryMail = mysqli_query($conn, $sqlEmail);
+            
 
+            // check duplicate email address
+            $sqlMail = "SELECT email FROM customer WHERE email='$email'";
+            $queryMail = mysqli_query($conn, $sqlMail);
             $resultMail = mysqli_fetch_array($queryMail);
-            // check duplicate phone number
-            $sqlPhone = "SELECT phone FROM customer WHERE phone='$phone'";
-            $queryPhone = mysqli_query($conn, $sqlPhone);
-            $resultPhone = mysqli_fetch_array($queryPhone);
 
-            if(isset($resultPhone['phone']))
-            if($resultPhone['phone'] == $phone) {
-                $mobileAlreadyExists = "Mobile Number already exists";
+            
 
-                
+
+            if(isset($resultMail['email']))
+            if($resultMail['email'] == $email) {
+                $mailExists = "Email id already exists";
             }
 
 
             
-            if (!empty($email) && empty($mobileAlreadyExists)) {
-
+            if (!empty($email) 
+                && empty($mailExists)) 
+            {
 
                 if ($resultMail['email'] == $email) {
                     $mailExists = "*This Mail is Already Registered";
                 } else {
 
 
-                    $sql = " INSERT INTO customer (name, phone, email, password ) VALUES ('$name', '$mobileNumber', '$email','$passwordHash')";
+                    $sql = " INSERT INTO 
+                    customer (name, phone, email, password ) 
+                    VALUES (
+                    '$name', 
+                    '$mobileNumber', 
+                    '$email',
+                    '$passwordHash'
+                    )";
                     
                     if (mysqli_query($conn, $sql)) {
 
@@ -131,7 +145,6 @@
                 <label for="exampleInputEmail1" class="form-label">Mobile Number </label>
                 <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="mobileNumber">
                 <div id="emailHelp" class="form-text"><?php echo $mobileNumberErr; ?></div>
-                <div id="emailHelp" class="form-text"><?php echo $mobileAlreadyExists; ?></div>
 
             </div>
 
@@ -141,6 +154,8 @@
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
                 <div id="emailHelp" class="form-text"><?php echo $emailErr; ?></div>
+                <div id="emailHelp" class="form-text"><?php echo $mailExists; ?></div>
+
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Password</label>

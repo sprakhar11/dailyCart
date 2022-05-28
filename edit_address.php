@@ -9,6 +9,7 @@ include "./navbar.php";
 
 if(!empty($_SESSION['editaddressid'])){
     $editAddressId = $_SESSION['editaddressid'];
+    // var_dump($_SESSION['editaddressid']);
     
     // verify user id from the received address id :
     
@@ -17,20 +18,18 @@ if(!empty($_SESSION['editaddressid'])){
     $query=mysqli_query($conn,$sql);
 
     $address_verify = mysqli_fetch_array($query);
+    $_COOKIE['id'] = urldecode($_COOKIE['id']);
+
 
     $encrypted_id = $_COOKIE['id'];
-    var_dump($encrypted_id);
+    $parts = explode(':', $encrypted_id);
+    // var_dump($encrypted_id);
     $method = 'AES-128-CBC';
     $encryption_key = 'myencryptionkey';
-    $parts = explode(':', $encrypted_id);
     $decrypted_id = openssl_decrypt($parts[0], $method, $encryption_key, 0, $parts[1]);
-    var_dump($parts[1]);
-    var_dump($parts);
-        $sql="SELECT * FROM address  WHERE id='$editAddressId'";
-
-        $query=mysqli_query($conn,$sql);
-
-        $address=mysqli_fetch_array($query);
+    // var_dump($parts[1]);
+    // var_dump($decrypted_id);
+        
 
         $country = $name = $phone = $pincode = $addline1 = $city = $state = $type = $addressid = "";
         $countryErr = $nameErr = $phoneErr = $pincodeErr = $addline1Err = $cityErr = $stateErr ="";
@@ -45,17 +44,24 @@ if(!empty($_SESSION['editaddressid'])){
         $smarty->assign('typeErr', "");
 
     if( $decrypted_id !=  $address_verify['userid']) {
+        // var_dump($address_verify);
         //show error message and
-        var_dump($decrypted_id);
-        var_dump($address_verify['id']);
+        // var_dump($decrypted_id);
+        // var_dump($address_verify['id']);
         
-        echo "Error";
+        // echo "Error";
         die;
 
 
 
     } else {
         // save address 
+        $sql="SELECT * FROM address  WHERE id='$editAddressId'";
+
+        $query=mysqli_query($conn,$sql);
+
+        $address=mysqli_fetch_array($query);
+
         $smarty->assign('country', $address['country']);
         $smarty->assign('name', $address['name']);
         $smarty->assign('phone', $address['phone']);
