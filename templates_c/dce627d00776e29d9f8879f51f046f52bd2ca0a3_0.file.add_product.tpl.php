@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.1, created on 2022-05-28 09:07:54
+/* Smarty version 4.1.1, created on 2022-05-30 11:11:56
   from 'C:\xampp\htdocs\dailycart\add_product.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.1',
-  'unifunc' => 'content_6291ca4a04e3e1_17666094',
+  'unifunc' => 'content_62948a5c65c513_20813853',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'dce627d00776e29d9f8879f51f046f52bd2ca0a3' => 
     array (
       0 => 'C:\\xampp\\htdocs\\dailycart\\add_product.tpl',
-      1 => 1653721672,
+      1 => 1653901911,
       2 => 'file',
     ),
   ),
@@ -20,12 +20,12 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6291ca4a04e3e1_17666094 (Smarty_Internal_Template $_smarty_tpl) {
+function content_62948a5c65c513_20813853 (Smarty_Internal_Template $_smarty_tpl) {
 ?><html>
 
 <div class="container">
 
-        <h1 style="text-align: center;">Seller Register Here</h1>
+        <h1 style="text-align: center;">Add product</h1>
         <br><br><br><br><br>
 
         <form action="add_product.php" method="POST" enctype="multipart/form-data">

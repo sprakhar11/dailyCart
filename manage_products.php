@@ -1,34 +1,28 @@
 
-<?php include "./header.php";
-      include "./config/userSession.php";
-      include "./navbar.php";
+<?php 
+include "./header.php";
+include "./login_check.php";
+include "./navbar.php";
 
-   if(empty($_SESSION['email'])) {
 
-    header('Location: login.php?from_page=myAccount');
+if(isset($_POST['updated'])) {
+  // print_r($_POST['submit']);
+  // echo 'hi';
 
-   }
-   
 
+}
 if(isset($_POST['submitEdit'])) {
     // print_r($_POST['submit']);
     // echo 'hi';
 
-    $_SESSION['editproductid'] = $_POST['submitEdit'];
+    setcookie('editproductid', $_POST['editproductid'], "/", 86000* 30  );
     header('Location: edit_product.php');
-
-    
-    
-
 
 }
 
 if(isset($_POST['submit']))
 {
-    // print_r($_POST['submit']);
-    // echo 'hi';
-
-    
+  
     $delId = $_POST['submit'];
     $sql_delete = "DELETE FROM product WHERE id='$delId'";
     if ($conn->query($sql_delete) === TRUE) {

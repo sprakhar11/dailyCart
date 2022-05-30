@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.1, created on 2022-05-26 13:28:38
+/* Smarty version 4.1.1, created on 2022-05-30 13:36:07
   from 'C:\xampp\htdocs\dailycart\edit_address.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.1',
-  'unifunc' => 'content_628f646661be69_63146840',
+  'unifunc' => 'content_6294ac27497027_57413924',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '713921258ea9bafed7428b244e0db39ac18cb67d' => 
     array (
       0 => 'C:\\xampp\\htdocs\\dailycart\\edit_address.tpl',
-      1 => 1653564500,
+      1 => 1653909696,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_628f646661be69_63146840 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6294ac27497027_57413924 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!doctype html>
 <html lang="en">
 
@@ -42,7 +42,7 @@ function content_628f646661be69_63146840 (Smarty_Internal_Template $_smarty_tpl)
 
 <body>
     <!-- <h1>Hello, world!</h1> -->
-    <form action="./edit_address.php" method="POST" enctype="multipart/form-data">
+    <form action="edit_address.php" method="POST" enctype="multipart/form-data">
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="inputEmail4">Country</label>

@@ -1,17 +1,8 @@
 
 <?php
-
+include "./login_check.php";
 include "./header.php";
-include "./config/userSession.php";
 include "./navbar.php";
-
-
-if(empty($_SESSION['email'])) {
-
-    header('Location: login.php?from_page=myAccount');
-
-}
-// include "./userData.php";
 
 $name = $description = $price = $imagePath = "";
 $nameErr = $descriptionErr = $priceErr = $imagePathErr = "";

@@ -8,10 +8,14 @@
             <h5 class="card-title">{$value.name}</h5>
             <p class="card-text">{$value.description}</p>
             <p class="card-text">{$value.price}</p>
-        <form action="manage_products.php" method="POST">
-        <button type="submit" class="btn btn-primary" name="submitEdit" value="<?php echo $value['id'] ?>">Edit</button>
+        <form action="edit_product.php" method="POST">
+        <button type="submit" class="btn btn-primary" name="submitEdit" value="{$value.id}">Edit</button>
+        </form>
 
-        <button type="submit" class="btn btn-primary" name="submit" value="<?php echo $value['id'] ?>">Delete</button>
+        <form action="manage_products.php" method="POST">
+
+        <button type="submit" class="btn btn-primary" name="submit" value="{$value.id}">Delete</button>
+        </form>
             
         </form>
           </div>

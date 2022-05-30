@@ -1,7 +1,13 @@
-
 <?php 
 
-    include "./header.php" ;  
+    include "./header.php" ; 
+    if(isset($_COOKIE['id'])) {
+
+        header('Location: userDashboard.php');
+
+    }
+    include "./navbar.php";
+
     require './vendor/autoload.php';
     $smarty = new Smarty();  
 

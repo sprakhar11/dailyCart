@@ -19,7 +19,7 @@
 
 <body>
     <!-- <h1>Hello, world!</h1> -->
-    <form action="./edit_address.php" method="POST" enctype="multipart/form-data">
+    <form action="edit_address.php" method="POST" enctype="multipart/form-data">
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="inputEmail4">Country</label>

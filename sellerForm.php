@@ -6,6 +6,7 @@ include "./config/userSession.php";
 include "./navbar.php";
 // include "./userData.php";
 
+
 $name = $email = $address = "";
 $nameErr = $emailErr = $addressErr = "";
 $formSubmitted = "";
@@ -54,7 +55,7 @@ $smarty->assign('nameErr', $nameErr);
             if (empty($nameErr) && empty($emailErr) && empty($addressErr)) {
                 //update profile to seller
                 $userId = $user['id'];
-                $sql = "UPDATE customer SET profile='seller' WHERE id=$userId ";
+                $sql = "UPDATE customer SET profile='".$SELLER_NAME."' WHERE id=$userId ";
                 if ($conn->query($sql) === TRUE) {
                     $formSubmitted = "You are a seller now . Go to My Account to add products";
                     $smarty->assign('formSubmitted', $formSubmitted);
@@ -79,7 +80,8 @@ $smarty->assign('nameErr', $nameErr);
 
                         // adding in the table (create customer)
                         
-                        $sql = " INSERT INTO seller (id,name, email, phone, address) VALUES ('$userId', '$name', '$email', '$mobileNumber','$address')";
+                        $sql = " INSERT INTO seller (name, email, phone, address) VALUES ('$name', '$email',
+                        '$mobileNumber','$address') WHERE id=$userid ";
                         
                         if (mysqli_query($conn, $sql)) {
 

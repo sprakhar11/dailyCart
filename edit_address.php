@@ -1,40 +1,13 @@
 <?php
-require './vendor/autoload.php';
-$smarty = new Smarty();
 
 include "./header.php";
-include "./config/userSession.php";
+include "./login_check.php";
 include "./navbar.php";
-
-
-if(!empty($_SESSION['editaddressid'])){
-    $editAddressId = $_SESSION['editaddressid'];
-    // var_dump($_SESSION['editaddressid']);
-    
-    // verify user id from the received address id :
-    
-    $sql="SELECT * FROM address  WHERE id='$editAddressId'";
-
-    $query=mysqli_query($conn,$sql);
-
-    $address_verify = mysqli_fetch_array($query);
-    $_COOKIE['id'] = urldecode($_COOKIE['id']);
-
-
-    $encrypted_id = $_COOKIE['id'];
-    $method = 'AES-128-CBC';
-    $encryption_key = 'myencryptionkey';
-    // var_dump($encrypted_id);
-
-    $parts = explode(':', $encrypted_id);
-    $decrypted_id = openssl_decrypt($parts[0], $method, $encryption_key, 0, $parts[1]);
-    // var_dump($parts[1]);
-    // var_dump($decrypted_id);
-        
-
-        $country = $name = $phone = $pincode = $addline1 = $city = $state = $type = $addressid = "";
+// var_dump($_POST);
+if (isset($_POST['submit'])) {
+    $country = $name = $phone = $pincode = $addline1 = $city = $state = $type = $addressid = "";
         $countryErr = $nameErr = $phoneErr = $pincodeErr = $addline1Err = $cityErr = $stateErr ="";
-         $typeErr = $addressidErr = "";
+        $typeErr = $addressidErr = "";
         $smarty->assign('countryErr', "");
         $smarty->assign('nameErr', "");
         $smarty->assign('phoneErr', "");
@@ -44,48 +17,15 @@ if(!empty($_SESSION['editaddressid'])){
         $smarty->assign('stateErr', "");
         $smarty->assign('typeErr', "");
 
-    if( $decrypted_id !=  $address_verify['userid']) {
-        // var_dump($address_verify);
-        //show error message and
-        // var_dump($decrypted_id);
-        // var_dump($address_verify['id']);
-        
-        // echo "Error";
-        die;
 
+    
+    $editAddressId = $_COOKIE['editaddressid']; 
 
+    $sql="SELECT * FROM address  WHERE id='$editAddressId'";
 
-    } else {
-        // save address 
-        $sql="SELECT * FROM address  WHERE id='$editAddressId'";
+    $query=mysqli_query($conn,$sql);
 
-        $query=mysqli_query($conn,$sql);
-
-        $address=mysqli_fetch_array($query);
-
-        $smarty->assign('country', $address['country']);
-        $smarty->assign('name', $address['name']);
-        $smarty->assign('phone', $address['phone']);
-        $smarty->assign('pincode', $address['pincode']);
-        $smarty->assign('addline1', $address['addline1']);
-        $smarty->assign('city', $address['city']);
-        $smarty->assign('state', $address['state']);
-        $smarty->assign('type', $address['type']);
-
-
-
-
-
-
-
-
-        if(isset($_POST['submit'])){
-            
-
-// $addressId = $address['id'];
-// echo $addressId;
-if (isset($_POST['submit'])) {
-
+    $address=mysqli_fetch_array($query);
 
     if (!empty($_POST['country'])) {
         $country = htmlspecialchars($_POST['country']);
@@ -133,10 +73,18 @@ if (isset($_POST['submit'])) {
         $state = $address['state'];
     }
     if (!empty($_POST['type'])) {
-        $type = $_POST['type'];
+    $type = $_POST['type'];
     } else {
         $type = $address['type'];
     }
+        $smarty->assign('country', $address['country']);
+        $smarty->assign('name', $address['name']);
+        $smarty->assign('phone', $address['phone']);
+        $smarty->assign('pincode', $address['pincode']);
+        $smarty->assign('addline1', $address['addline1']);
+        $smarty->assign('city', $address['city']);
+        $smarty->assign('state', $address['state']);
+        $smarty->assign('type', $address['type']);
 
     if (empty($nameErr)
         && empty($countryErr)
@@ -145,8 +93,7 @@ if (isset($_POST['submit'])) {
         && empty($addline1Err)
         && empty($stateErr)
         && empty($cityErr)
-        && empty($typeErr)
-    ) {
+        && empty($typeErr)) {
         $sql = "
         UPDATE
         address 
@@ -164,21 +111,76 @@ if (isset($_POST['submit'])) {
                 
         if (mysqli_query($conn, $sql)) {
 
-            // successfully data registered
-            header('Location: manage_address.php');
-            // echo 'hialkdnsa;ldfndsl;fndslfjnsd;lfnj';
+            var_dump(mysqli_query($conn,$sql));
+
+            // header('Location: manage_address.php?update=done');
+
         } else {
-            // echo "Error:" . mysqli_error($conn);
+
         }
     }
 }
-        }
 
+if(isset($_POST['submitEdit'])){
+
+    $editAddressId = $_POST['submitEdit'];
+
+    
+    $sql="SELECT * FROM address  WHERE id='$editAddressId'";
+
+    $query=mysqli_query($conn,$sql);
+
+    $address_verify = mysqli_fetch_array($query);
+    $_COOKIE['id'] = urldecode($_COOKIE['id']);
+
+
+    $encrypted_id = $_COOKIE['id'];
+    $method = 'AES-128-CBC';
+    $encryption_key = 'myencryptionkey';
+    // var_dump($encrypted_id);
+
+    $parts = explode(':', $encrypted_id);
+    $decrypted_id = openssl_decrypt($parts[0], $method, $encryption_key, 0, $parts[1]);
+    // var_dump($parts[1]);
+    // var_dump($decrypted_id);
+        
+
+        $country = $name = $phone = $pincode = $addline1 = $city = $state = $type = $addressid = "";
+        $countryErr = $nameErr = $phoneErr = $pincodeErr = $addline1Err = $cityErr = $stateErr ="";
+        $typeErr = $addressidErr = "";
+        $smarty->assign('countryErr', "");
+        $smarty->assign('nameErr', "");
+        $smarty->assign('phoneErr', "");
+        $smarty->assign('pincodeErr', "");
+        $smarty->assign('addline1Err', "");
+        $smarty->assign('cityErr', "");
+        $smarty->assign('stateErr', "");
+        $smarty->assign('typeErr', "");
+
+    if($decrypted_id ==  $address_verify['userid']) {
+        
+        // save address 
+        $sql="SELECT * FROM address  WHERE id='$editAddressId'";
+
+        $query=mysqli_query($conn,$sql);
+
+        $address=mysqli_fetch_array($query);
+
+        $smarty->assign('country', $address['country']);
+        $smarty->assign('name', $address['name']);
+        $smarty->assign('phone', $address['phone']);
+        $smarty->assign('pincode', $address['pincode']);
+        $smarty->assign('addline1', $address['addline1']);
+        $smarty->assign('city', $address['city']);
+        $smarty->assign('state', $address['state']);
+        $smarty->assign('type', $address['type']);
+        setcookie('editaddressid', $editAddressId, time() + (86400 * 30), "/");
+
+
+    } else {
+        header ("Location: myAccount.php");
     }
-} else {
-    //show error and redirect
-    echo "Error2";
-        die;
+
 }
 
 

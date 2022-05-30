@@ -5,6 +5,9 @@
 
 {if ($user)}
     <h5>Welcome {$user.name}</h5>
+        <a href='add_address.php'>Add Address</a>
+
+    
     {if $user.profile eq 'customer'}
         <a href='editProfile.php'>Edit Profile</a>
 

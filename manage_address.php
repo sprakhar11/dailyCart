@@ -1,14 +1,10 @@
 
 <?php
 include "./header.php";
-include "./config/userSession.php";
+include "./login_check.php";
 include "./navbar.php";
 
-   if(empty($_SESSION['email'])) {
-
-    header('Location: login.php?from_page=xyz');
-
-   }
+   
 
 
 if(isset($_POST['submitEdit']))

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.1, created on 2022-05-27 11:57:33
+/* Smarty version 4.1.1, created on 2022-05-30 08:28:41
   from 'C:\xampp\htdocs\dailycart\header.php' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.1',
-  'unifunc' => 'content_6290a08d17a631_76030247',
+  'unifunc' => 'content_629464195b9b69_42616655',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '906dd69a6ee74b8bd52be32d456087f1a45ca0a6' => 
     array (
       0 => 'C:\\xampp\\htdocs\\dailycart\\header.php',
-      1 => 1651491048,
+      1 => 1653892108,
       2 => 'file',
     ),
   ),
@@ -20,10 +20,13 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6290a08d17a631_76030247 (Smarty_Internal_Template $_smarty_tpl) {
+function content_629464195b9b69_42616655 (Smarty_Internal_Template $_smarty_tpl) {
 ?><head>
     <?php echo '<?php'; ?>
- include "./config/db_connt.php"  <?php echo '?>'; ?>
+
+      include "./config/db_connt.php";
+      $SELLER_NAME = 'seller';
+    <?php echo '?>'; ?>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -34,5 +37,5 @@ function content_6290a08d17a631_76030247 (Smarty_Internal_Template $_smarty_tpl)
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <title>Shop</title>
-  </head><?php }
+</head><?php }
 }

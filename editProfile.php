@@ -2,18 +2,9 @@
 <?php
 
 include "./header.php";
-include "./config/userSession.php";
 include "./navbar.php";
 
 require './vendor/autoload.php';
-$smarty = new Smarty();
-
-// if user is not logged in
-if(empty($_SESSION['email'])) {
-
-    header('Location: login.php?from_page=myAccount');
-
-}
 // include "./userData.php";
 
 $name = $phone = "";

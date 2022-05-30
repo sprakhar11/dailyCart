@@ -13,10 +13,6 @@
             </ul>
             <form class="d-flex">
 
-            
-            
-
-
 {if (!$check)}
     <li class="nav-item" style="list-style:none;">
         <a class="nav-link " href="login.php">Login</a>
@@ -37,6 +33,8 @@
         </button>
         <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="myAccount.php">My Account</a></li>
+            <li><a class="dropdown-item" href="userProducts.php">Your Products</a></li>
+
 
             <li><a class="dropdown-item" href='logout.php'><button type="button" class="btn btn-danger">Logout</button></a></li>
         </ul>

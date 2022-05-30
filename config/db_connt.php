@@ -9,13 +9,9 @@ define("DB_NAME","dailycart");
 $conn=new mysqli(DB_HOST,DB_USER,DB_PASS,DB_NAME);
 
 if($conn->connect_error){
-    echo "Database not connected";
+    header('Location: databaseErr.html');
+
 }else{
-    // echo "you are connected to database";
+    // No error  occurred
 }
-
-
-
-
-
 ?>

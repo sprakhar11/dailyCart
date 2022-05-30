@@ -1,8 +1,8 @@
 <?php
+include "./login_check.php";
 
-
-require './vendor/autoload.php';
-$smarty = new Smarty();
+include "./header.php";
+include "./navbar.php";
 
 // $country = $name = $phone = $pincode = "";
 // $addline1 = $city = $state = $type = $userid = "";
